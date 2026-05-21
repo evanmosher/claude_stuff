@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report — Lunenburg, NS — May 21, 2026</title>
+  <style>
+    :root {
+      --sky:   #1a6fa8;
+      --sky2:  #e8f4fd;
+      --warn:  #b54708;
+      --warn-bg: #fff3cd;
+      --card:  #ffffff;
+      --text:  #1a2535;
+      --sub:   #5a6a80;
+      --border:#d0dde8;
+      --shadow: 0 2px 12px rgba(26,111,168,.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(160deg, #cde8f8 0%, #e8f4fd 45%, #f4f9fe 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header .location {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--sky);
+      letter-spacing: -.5px;
+    }
+    header .date {
+      font-size: 1rem;
+      color: var(--sub);
+      margin-top: 4px;
+    }
+    header .source {
+      font-size: 0.78rem;
+      color: var(--sub);
+      margin-top: 6px;
+    }
+    header .source a { color: var(--sky); text-decoration: none; }
+    header .source a:hover { text-decoration: underline; }
+
+    /* ── Alert banner ── */
+    .alert {
+      max-width: 860px;
+      margin: 0 auto 22px;
+      background: var(--warn-bg);
+      border-left: 5px solid var(--warn);
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .alert .icon { font-size: 1.5rem; flex-shrink: 0; }
+    .alert .title { font-weight: 700; color: var(--warn); font-size: 0.95rem; }
+    .alert .body  { font-size: 0.85rem; color: #6b4a10; margin-top: 3px; line-height: 1.5; }
+
+    /* ── Grid layout ── */
+    .grid {
+      display: grid;
+      gap: 18px;
+      max-width: 860px;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .card h2 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Hero card ── */
+    .hero {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .hero .emoji { font-size: 5rem; line-height: 1; }
+    .hero .main  { flex: 1; }
+    .hero .temp  {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--sky);
+      line-height: 1;
+    }
+    .hero .temp sup { font-size: 1.5rem; vertical-align: super; }
+    .hero .condition {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .hero .details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .hero .details span {
+      font-size: 0.85rem;
+      color: var(--sub);
+      background: var(--sky2);
+      border-radius: 20px;
+      padding: 4px 12px;
+    }
+
+    /* ── Stat rows ── */
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f4f8;
+      font-size: 0.88rem;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row .label { color: var(--sub); }
+    .stat-row .value { font-weight: 600; }
+
+    /* ── Temp range bar ── */
+    .range-wrap { margin-top: 8px; }
+    .range-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--sub);
+      margin-bottom: 5px;
+    }
+    .range-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #74b9ff, #fd79a8, #e17055);
+    }
+    .range-markers {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .range-markers .lo { color: #2980b9; }
+    .range-markers .hi { color: #c0392b; }
+
+    /* ── UV bar ── */
+    .uv-bar-wrap { margin-top: 10px; }
+    .uv-bar {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right,#27ae60,#f1c40f,#e67e22,#e74c3c,#8e44ad);
+      position: relative;
+    }
+    .uv-marker {
+      position: absolute;
+      top: -4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #333;
+      transform: translateX(-50%);
+      left: 82%;
+    }
+    .uv-label { font-size: 0.8rem; color: var(--sub); margin-top: 6px; }
+
+    /* ── Hourly forecast ── */
+    .hourly-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .hour-cell {
+      background: var(--sky2);
+      border-radius: 10px;
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+    .hour-cell .time  { color: var(--sub); font-weight: 600; }
+    .hour-cell .icon  { font-size: 1.3rem; margin: 4px 0; }
+    .hour-cell .temp  { font-weight: 700; color: var(--sky); }
+    .hour-cell .precip { font-size: 0.7rem; color: #2980b9; margin-top: 2px; }
+
+    /* ── Day/Night split ── */
+    .period-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .period {
+      background: var(--sky2);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .period .label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--sub); }
+    .period .icon  { font-size: 2.2rem; margin: 8px 0 6px; }
+    .period .temp  { font-size: 1.5rem; font-weight: 800; color: var(--sky); }
+    .period .desc  { font-size: 0.78rem; color: var(--sub); margin-top: 5px; line-height: 1.4; }
+
+    /* ── Sun times ── */
+    .sun-row {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 8px;
+      text-align: center;
+    }
+    .sun-item .icon  { font-size: 2rem; }
+    .sun-item .label { font-size: 0.72rem; color: var(--sub); margin-top: 2px; }
+    .sun-item .time  { font-size: 1rem; font-weight: 700; margin-top: 2px; }
+
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 0.78rem;
+      color: var(--sub);
+    }
+    footer a { color: var(--sky); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="location">&#127757; Lunenburg, Nova Scotia</div>
+    <div class="date">Thursday, May 21, 2026</div>
+    <div class="source">
+      Data: <a href="https://weather.gc.ca/en/location/index.html?coords=44.377%2C-64.317" target="_blank">Environment Canada</a>
+      &bull; Coordinates: 44.377°N, 64.317°W &bull; Timezone: ADT (UTC−3)
+    </div>
+  </header>
+
+  <!-- Heat Warning -->
+  <div class="alert">
+    <div class="icon">&#9888;&#65039;</div>
+    <div>
+      <div class="title">HEAT WARNING IN EFFECT — Environment Canada</div>
+      <div class="body">
+        Dangerous heat conditions are expected. Temperatures reaching 32°C with a humidex of 36 are forecast for
+        inland areas. Coastal areas of Lunenburg County may be cooler (~18°C) due to sea breeze influence.
+        Plan outdoor activities during the coolest parts of the day. Limit direct sun exposure.
+        Never leave people or pets in parked vehicles.
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- ── Hero: current conditions ── -->
+    <div class="card hero">
+      <div class="emoji">&#127787;&#65039;</div>
+      <div class="main">
+        <div class="temp">18<sup>°C</sup></div>
+        <div class="condition">Mix of Sun and Cloud with Dissipating Fog</div>
+        <div class="details">
+          <span>&#127774; Coastal high ~18°C</span>
+          <span>&#127779; Inland high up to 32°C</span>
+          <span>Humidex 36 (inland)</span>
+          <span>&#9728;&#65039; UV Index 9 — Very High</span>
+          <span>SW 20 km/h gusting 40</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Temperature ── -->
+    <div class="card">
+      <h2>Temperature</h2>
+      <div class="range-wrap">
+        <div class="range-label">
+          <span>Low</span>
+          <span>High (coastal)</span>
+        </div>
+        <div class="range-bar"></div>
+        <div class="range-markers">
+          <span class="lo">10°C</span>
+          <span class="hi">18°C</span>
+        </div>
+      </div>
+      <div style="margin-top:16px">
+        <div class="stat-row">
+          <span class="label">Coastal High</span>
+          <span class="value">~18°C</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Overnight Low</span>
+          <span class="value">10°C</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Humidex (inland)</span>
+          <span class="value">36</span>
+        </div>
+        <div class="stat-row">
+          <span class="label">Inland High</span>
+          <span class="value">up to 32°C</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Wind ── -->
+    <div class="card">
+      <h2>Wind</h2>
+      <div class="stat-row">
+        <span class="label">Direction</span>
+        <span class="value">Southwest (SW)</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Speed</span>
+        <span class="value">20 km/h</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Gusts</span>
+        <span class="value">up to 40 km/h</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Tonight shift</span>
+        <span class="value">NW near midnight</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Tonight gusts</span>
+        <span class="value">up to 40 km/h</span>
+      </div>
+    </div>
+
+    <!-- ── UV Index ── -->
+    <div class="card">
+      <h2>UV Index</h2>
+      <div style="font-size:2rem; font-weight:800; color:#e74c3c; margin-bottom:4px;">9</div>
+      <div style="font-size:0.9rem; font-weight:600; color:#c0392b; margin-bottom:12px;">Very High</div>
+      <div class="uv-bar-wrap">
+        <div class="uv-bar"><div class="uv-marker"></div></div>
+        <div class="uv-label">Scale: 0 (Low) → 11+ (Extreme)</div>
+      </div>
+      <div class="stat-row" style="margin-top:12px">
+        <span class="label">Recommendation</span>
+        <span class="value" style="color:#c0392b;">Protection required</span>
+      </div>
+      <div style="font-size:0.78rem; color:var(--sub); margin-top:8px; line-height:1.5;">
+        Apply SPF 30+ sunscreen. Wear protective clothing and a wide-brimmed hat. Seek shade between 11am–3pm.
+      </div>
+    </div>
+
+    <!-- ── Hourly Forecast ── -->
+    <div class="card" style="grid-column: 1 / -1;">
+      <h2>Hourly Snapshot — May 21, 2026</h2>
+      <div class="hourly-grid">
+        <div class="hour-cell">
+          <div class="time">6 AM</div>
+          <div class="icon">&#127787;&#65039;</div>
+          <div class="temp">11°C</div>
+          <div class="precip">Fog</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">8 AM</div>
+          <div class="icon">&#127785;</div>
+          <div class="temp">13°C</div>
+          <div class="precip">Clearing</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">10 AM</div>
+          <div class="icon">&#9925;</div>
+          <div class="temp">15°C</div>
+          <div class="precip">10%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">12 PM</div>
+          <div class="icon">&#9925;</div>
+          <div class="temp">17°C</div>
+          <div class="precip">10%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">2 PM</div>
+          <div class="icon">&#9925;</div>
+          <div class="temp">18°C</div>
+          <div class="precip">10%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">4 PM</div>
+          <div class="icon">&#9925;</div>
+          <div class="temp">17°C</div>
+          <div class="precip">15%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">6 PM</div>
+          <div class="icon">&#9928;&#65039;</div>
+          <div class="temp">15°C</div>
+          <div class="precip">25%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">8 PM</div>
+          <div class="icon">&#127783;&#65039;</div>
+          <div class="temp">13°C</div>
+          <div class="precip">30%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">10 PM</div>
+          <div class="icon">&#127763;</div>
+          <div class="temp">12°C</div>
+          <div class="precip">20%</div>
+        </div>
+        <div class="hour-cell">
+          <div class="time">12 AM</div>
+          <div class="icon">&#127763;</div>
+          <div class="temp">11°C</div>
+          <div class="precip">10%</div>
+        </div>
+      </div>
+      <div style="font-size:0.75rem; color:var(--sub); margin-top:10px;">
+        &#8505;&#65039; Coastal temperatures shown. Precipitation % = probability of showers. Hourly values are interpolated from Environment Canada forecast data.
+      </div>
+    </div>
+
+    <!-- ── Day / Night ── -->
+    <div class="card">
+      <h2>Day / Night Summary</h2>
+      <div class="period-grid">
+        <div class="period">
+          <div class="label">Daytime</div>
+          <div class="icon">&#9728;&#65039;</div>
+          <div class="temp">18°C</div>
+          <div class="desc">Mix of sun &amp; cloud. Fog clearing. SW wind 20 gusting 40 km/h.</div>
+        </div>
+        <div class="period">
+          <div class="label">Tonight</div>
+          <div class="icon">&#127769;</div>
+          <div class="temp">10°C</div>
+          <div class="desc">Partly cloudy. 30% chance showers. Wind shifting NW near midnight.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sunrise / Sunset ── -->
+    <div class="card">
+      <h2>Sun Times</h2>
+      <div class="sun-row">
+        <div class="sun-item">
+          <div class="icon">&#127759;</div>
+          <div class="label">Sunrise</div>
+          <div class="time">5:52 AM</div>
+        </div>
+        <div class="sun-item">
+          <div class="icon">&#127751;</div>
+          <div class="label">Solar Noon</div>
+          <div class="time">1:14 PM</div>
+        </div>
+        <div class="sun-item">
+          <div class="icon">&#127760;</div>
+          <div class="label">Sunset</div>
+          <div class="time">8:36 PM</div>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top:14px">
+        <span class="label">Daylight Duration</span>
+        <span class="value">~14 h 44 min</span>
+      </div>
+    </div>
+
+    <!-- ── Precipitation ── -->
+    <div class="card">
+      <h2>Precipitation</h2>
+      <div class="stat-row">
+        <span class="label">Daytime chance</span>
+        <span class="value">Low (&lt;10%)</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Evening chance</span>
+        <span class="value">30%</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Type</span>
+        <span class="value">Rain showers</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Expected amount</span>
+        <span class="value">Trace to 2 mm</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Morning fog</span>
+        <span class="value">Dissipating</span>
+      </div>
+    </div>
+
+    <!-- ── Additional Details ── -->
+    <div class="card">
+      <h2>Additional Details</h2>
+      <div class="stat-row">
+        <span class="label">Ocean</span>
+        <span class="value">Atlantic Coast</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Sea Breeze</span>
+        <span class="value">Active — cools coast</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Visibility</span>
+        <span class="value">Improving after fog</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Cloud Cover</span>
+        <span class="value">Mixed, 40–60%</span>
+      </div>
+      <div class="stat-row">
+        <span class="label">Heat Warning</span>
+        <span class="value" style="color:var(--warn);">Active (ends eve)</span>
+      </div>
+    </div>
+
+  </div><!-- /.grid -->
+
+  <footer>
+    Generated: May 21, 2026 at 10:04 ADT &bull;
+    Source: <a href="https://weather.gc.ca/en/location/index.html?coords=44.377%2C-64.317" target="_blank">Environment Canada — Lunenburg, NS</a>
+    &bull; <a href="https://www.theweathernetwork.com/en/city/ca/nova-scotia/lunenburg/current" target="_blank">The Weather Network</a>
+  </footer>
+
+</body>
+</html>
