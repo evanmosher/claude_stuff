@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report — Lunenburg, NS — May 24, 2026</title>
+  <style>
+    :root { --sky: #1a6fa8; --sky-light: #e8f4fc; --accent: #f59e0b; --card-bg: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(160deg, #c8e6f5 0%, #e8f4fc 60%, #f0f9ff 100%); min-height: 100vh; color: var(--text); padding: 2rem 1rem; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header h1 { font-size: 2rem; font-weight: 700; color: var(--sky); }
+    header .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
+    .grid { display: grid; gap: 1.25rem; max-width: 760px; margin: 0 auto; }
+    .card { background: var(--card-bg); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.07); border: 1px solid var(--border); }
+    .card h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 1rem; }
+    .current-main { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .current-icon { font-size: 4rem; }
+    .current-temps { flex: 1 1 160px; }
+    .current-temps .temp { font-size: 3rem; font-weight: 700; color: var(--sky); line-height: 1; }
+    .current-temps .feels-like { font-size: 0.95rem; color: var(--muted); margin-top: 0.25rem; }
+    .current-temps .condition { font-size: 1rem; font-weight: 600; margin-top: 0.4rem; }
+    .current-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .meta-item label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+    .meta-item span { font-size: 1rem; font-weight: 600; }
+    .hl-row { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .hl-item { text-align: center; flex: 1; }
+    .hl-item .label { font-size: 0.8rem; color: var(--muted); }
+    .hl-item .value { font-size: 1.75rem; font-weight: 700; }
+    .hl-item.high .value { color: #dc2626; }
+    .hl-item.low .value { color: #2563eb; }
+    .hl-note { font-size: 0.8rem; color: var(--muted); font-style: italic; flex-basis: 100%; }
+    .sun-row { display: flex; justify-content: space-around; gap: 1rem; text-align: center; }
+    .sun-item .label { font-size: 0.8rem; color: var(--muted); }
+    .sun-item .value { font-size: 1.3rem; font-weight: 700; }
+    .tonight-body { font-size: 0.95rem; line-height: 1.6; }
+    .tonight-body .low-temp { font-size: 1.2rem; font-weight: 700; color: #2563eb; }
+    footer { text-align: center; font-size: 0.8rem; color: var(--muted); max-width: 760px; margin: 1.75rem auto 0; line-height: 1.6; }
+    footer a { color: var(--sky); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>&#127749; Lunenburg, Nova Scotia</h1>
+    <p class="subtitle">Weather Report &mdash; Sunday, May 24, 2026 &mdash; Generated 10:08 ADT</p>
+  </header>
+  <div class="grid">
+    <div class="card">
+      <h2>Current Conditions</h2>
+      <div class="current-main">
+        <div class="current-icon">&#9925;</div>
+        <div class="current-temps">
+          <div class="temp">15&deg;C</div>
+          <div class="feels-like">Feels like 13&deg;C</div>
+          <div class="condition">Mix of Sun &amp; Cloud</div>
+        </div>
+      </div>
+      <div class="current-meta">
+        <div class="meta-item"><label>Wind</label><span>NW 20 km/h</span></div>
+        <div class="meta-item"><label>Gusts</label><span>35 km/h</span></div>
+        <div class="meta-item"><label>Humidity</label><span>65%</span></div>
+        <div class="meta-item"><label>UV Index</label><span>6 &mdash; High</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Today&rsquo;s Temperatures</h2>
+      <div class="hl-row">
+        <div class="hl-item high"><div class="label">Daytime High</div><div class="value">19&deg;C</div></div>
+        <div class="hl-item low"><div class="label">Overnight Low</div><div class="value">8&deg;C</div></div>
+        <p class="hl-note">&#9432; Coastal spots on the Lunenburg harbour may run a few degrees cooler due to onshore flow.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Sun</h2>
+      <div class="sun-row">
+        <div class="sun-item"><div class="label">&#127774; Sunrise</div><div class="value">5:42 ADT</div></div>
+        <div class="sun-item"><div class="label">&#127754; Sunset</div><div class="value">20:46 ADT</div></div>
+        <div class="sun-item"><div class="label">&#9728;&#65039; Daylight</div><div class="value">15 h 04 m</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Tonight</h2>
+      <div class="tonight-body">
+        <p>Increasing cloud cover through the evening, becoming <strong>cloudy overnight</strong>.</p>
+        <p style="margin-top:0.6rem;">Wind <strong>NW 15 km/h</strong>, easing to light overnight.</p>
+        <p style="margin-top:0.75rem;">Overnight low: <span class="low-temp">8&deg;C</span></p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Day Summary</h2>
+      <p style="line-height:1.7; font-size:0.95rem;">A pleasant late-spring Sunday for Lunenburg with a mix of sun and cloud. Morning temperatures will climb through the mid-teens before peaking near <strong>19&deg;C</strong> in the early afternoon. A northwest breeze at <strong>20 km/h gusting to 35</strong> will keep things comfortable. With a UV index of <strong>6 (High)</strong>, sunscreen is recommended for extended outdoor time. Cloud cover builds through the afternoon, bringing a cooler overnight low of <strong>8&deg;C</strong>. No precipitation is expected today or tonight.</p>
+    </div>
+  </div>
+  <footer>
+    <p>Data sourced from <a href="https://weather.gc.ca/en/location/index.html?coords=44.377%2C-64.317" target="_blank">Environment Canada &mdash; Lunenburg, NS Forecast</a></p>
+    <p style="margin-top:0.3rem;">Report generated automatically &bull; May 24, 2026 10:08 ADT &bull; Coordinates: 44.377&deg;N, 64.317&deg;W</p>
+  </footer>
+</body>
+</html>

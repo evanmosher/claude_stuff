@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report – Lunenburg, NS – May 22, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: linear-gradient(135deg, #e0f0ff 0%, #cce8ff 50%, #d6eeff 100%); min-height: 100vh; padding: 2rem 1rem; color: #1a2a3a; }
+    .container { max-width: 860px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header .location { font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4a7aa7; margin-bottom: 0.3rem; }
+    header h1 { font-size: 2rem; font-weight: 700; color: #0d2d4f; }
+    header .date { font-size: 1rem; color: #5a7a9a; margin-top: 0.3rem; }
+    header .source { font-size: 0.78rem; color: #8aabb0; margin-top: 0.5rem; }
+    .hero { background: white; border-radius: 16px; padding: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; box-shadow: 0 4px 24px rgba(0,60,120,.10); margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .hero-left { display: flex; align-items: center; gap: 1.2rem; }
+    .condition-icon { font-size: 4.5rem; line-height: 1; }
+    .hero-temp { font-size: 3.8rem; font-weight: 300; color: #0d2d4f; line-height: 1; }
+    .hero-temp sup { font-size: 1.4rem; vertical-align: super; color: #4a7aa7; }
+    .hero-desc { font-size: 1.1rem; color: #4a7aa7; margin-top: 0.25rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .meta-item { text-align: center; }
+    .meta-item .val { font-size: 1.3rem; font-weight: 600; color: #0d2d4f; }
+    .meta-item .lbl { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #7a9ab0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .card { background: white; border-radius: 12px; padding: 1.1rem 1.2rem; box-shadow: 0 2px 12px rgba(0,60,120,.07); }
+    .card .card-lbl { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8aabb0; margin-bottom: 0.4rem; }
+    .card .card-val { font-size: 1.55rem; font-weight: 600; color: #0d2d4f; line-height: 1.1; }
+    .card .card-sub { font-size: 0.8rem; color: #7a9ab0; margin-top: 0.2rem; }
+    .sun-bar { background: linear-gradient(90deg, #ffe49c, #ffbd59, #ff8c42, #5a4fcf, #1a0050); border-radius: 12px; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; color: white; margin-bottom: 1.5rem; box-shadow: 0 2px 16px rgba(255,140,40,.25); flex-wrap: wrap; gap: 1rem; }
+    .sun-item { text-align: center; }
+    .sun-item .sun-val { font-size: 1.5rem; font-weight: 700; }
+    .sun-item .sun-lbl { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+    .sun-divider { font-size: 2rem; opacity: 0.4; }
+    .section-title { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4a7aa7; margin-bottom: 0.75rem; padding-left: 0.25rem; }
+    .hourly { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,60,120,.07); margin-bottom: 1.5rem; }
+    .hourly table { width: 100%; border-collapse: collapse; }
+    .hourly thead th { background: #f0f7ff; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #6a9ab0; padding: 0.65rem 1rem; text-align: left; border-bottom: 1px solid #e0edf8; }
+    .hourly tbody tr:nth-child(even) { background: #f8fbff; }
+    .hourly tbody td { padding: 0.6rem 1rem; font-size: 0.9rem; color: #1a2a3a; border-bottom: 1px solid #eef4fa; }
+    .hourly tbody tr:last-child td { border-bottom: none; }
+    .hourly tbody td.time { font-weight: 600; color: #0d2d4f; white-space: nowrap; }
+    .hourly tbody td.cond { color: #4a7aa7; }
+    .hourly td .icon { margin-right: 0.3rem; }
+    .pop-bar { display: inline-block; height: 6px; border-radius: 3px; background: #60a8e0; vertical-align: middle; margin-right: 4px; }
+    .alert { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 8px 8px 0; padding: 0.8rem 1rem; font-size: 0.88rem; color: #7a5600; margin-bottom: 1.5rem; }
+    footer { text-align: center; font-size: 0.75rem; color: #9aabbf; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="location">Lunenburg, Nova Scotia, Canada &nbsp;•&nbsp; 44.38°N 64.32°W</div>
+    <h1>Weather Report</h1>
+    <div class="date">Friday, May 22, 2026 &nbsp;|&nbsp; Atlantic Daylight Time (ADT, UTC−3)</div>
+    <div class="source">Sources: Environment Canada · Open-Meteo · The Weather Network</div>
+  </header>
+  <div class="alert">☀️ <strong>UV Advisory:</strong> UV Index 7 (High) expected near midday. Seek shade and apply SPF 30+ sunscreen between 11 AM and 3 PM.</div>
+  <div class="hero">
+    <div class="hero-left">
+      <span class="condition-icon">☀️</span>
+      <div>
+        <div class="hero-temp">18<sup>°C</sup></div>
+        <div class="hero-desc">Sunny &amp; Breezy</div>
+        <div style="font-size:0.82rem;color:#8aabb0;margin-top:0.2rem;">Afternoon High &nbsp;|&nbsp; Low 8°C overnight</div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="val">54%</div><div class="lbl">Humidity</div></div>
+      <div class="meta-item"><div class="val">20 km/h</div><div class="lbl">Wind WNW</div></div>
+      <div class="meta-item"><div class="val">40 km/h</div><div class="lbl">Gusts</div></div>
+      <div class="meta-item"><div class="val">7</div><div class="lbl">UV Index</div></div>
+    </div>
+  </div>
+  <p class="section-title">Conditions at a Glance</p>
+  <div class="grid">
+    <div class="card"><div class="card-lbl">Feels Like</div><div class="card-val">16°C</div><div class="card-sub">Wind effect</div></div>
+    <div class="card"><div class="card-lbl">Dew Point</div><div class="card-val">7°C</div><div class="card-sub">Comfortable</div></div>
+    <div class="card"><div class="card-lbl">Pressure</div><div class="card-val">102.0 kPa</div><div class="card-sub">Rising ↑</div></div>
+    <div class="card"><div class="card-lbl">Visibility</div><div class="card-val">25 km</div><div class="card-sub">Excellent</div></div>
+    <div class="card"><div class="card-lbl">Cloud Cover</div><div class="card-val">5%</div><div class="card-sub">Mostly clear</div></div>
+    <div class="card"><div class="card-lbl">Precipitation</div><div class="card-val">0 mm</div><div class="card-sub">None expected</div></div>
+    <div class="card"><div class="card-lbl">Wind Direction</div><div class="card-val">WNW</div><div class="card-sub">293°</div></div>
+    <div class="card"><div class="card-lbl">UV Index</div><div class="card-val">7 – High</div><div class="card-sub">Peak 12–1 PM</div></div>
+  </div>
+  <p class="section-title">Sun &amp; Daylight</p>
+  <div class="sun-bar">
+    <div class="sun-item"><div class="sun-val">🌅 5:52 AM</div><div class="sun-lbl">Sunrise</div></div>
+    <div class="sun-divider">☀️</div>
+    <div class="sun-item"><div class="sun-val">12:13 PM</div><div class="sun-lbl">Solar Noon</div></div>
+    <div class="sun-divider">🌇</div>
+    <div class="sun-item"><div class="sun-val">🌆 8:34 PM</div><div class="sun-lbl">Sunset</div></div>
+    <div class="sun-item"><div class="sun-val">14h 42m</div><div class="sun-lbl">Daylight</div></div>
+  </div>
+  <p class="section-title">Hourly Forecast – May 22, 2026</p>
+  <div class="hourly">
+    <table>
+      <thead><tr><th>Time (ADT)</th><th>Condition</th><th>Temp (°C)</th><th>Feels Like</th><th>Humidity</th><th>Wind (km/h)</th><th>Precip. %</th></tr></thead>
+      <tbody>
+        <tr><td class="time">12:00 AM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>10</td><td>8°C</td><td>63%</td><td>WNW 12</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">2:00 AM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>9</td><td>7°C</td><td>65%</td><td>WNW 10</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">4:00 AM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>9</td><td>7°C</td><td>66%</td><td>W 8</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">6:00 AM</td><td class="cond"><span class="icon">🌅</span>Sunny</td><td>10</td><td>8°C</td><td>62%</td><td>WNW 10</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">7:00 AM</td><td class="cond"><span class="icon">☀️</span>Sunny</td><td>11</td><td>9°C</td><td>59%</td><td>WNW 12</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">8:00 AM</td><td class="cond"><span class="icon">☀️</span>Sunny</td><td>12</td><td>10°C</td><td>56%</td><td>WNW 14</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">9:00 AM</td><td class="cond"><span class="icon">☀️</span>Sunny</td><td>13</td><td>11°C</td><td>54%</td><td>WNW 16</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">10:00 AM</td><td class="cond"><span class="icon">☀️</span>Sunny</td><td>14</td><td>11°C</td><td>52%</td><td>WNW 18</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">11:00 AM</td><td class="cond"><span class="icon">☀️</span>Sunny</td><td>16</td><td>13°C</td><td>50%</td><td>WNW 20</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">12:00 PM</td><td class="cond"><span class="icon">☀️</span>Sunny &amp; Breezy</td><td>17</td><td>14°C</td><td>48%</td><td>WNW 30 G40</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">1:00 PM</td><td class="cond"><span class="icon">☀️</span>Sunny &amp; Breezy</td><td>18</td><td>15°C</td><td>46%</td><td>WNW 28 G40</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">2:00 PM</td><td class="cond"><span class="icon">☀️</span>Sunny &amp; Breezy</td><td>18</td><td>15°C</td><td>45%</td><td>WNW 26 G38</td><td><span class="pop-bar" style="width:4px"></span>0%</td></tr>
+        <tr><td class="time">3:00 PM</td><td class="cond"><span class="icon">🌤️</span>Mostly Sunny</td><td>17</td><td>14°C</td><td>48%</td><td>WNW 22</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">4:00 PM</td><td class="cond"><span class="icon">🌤️</span>Mostly Sunny</td><td>16</td><td>13°C</td><td>50%</td><td>W 20</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">5:00 PM</td><td class="cond"><span class="icon">🌤️</span>Partly Cloudy</td><td>15</td><td>12°C</td><td>52%</td><td>W 18</td><td><span class="pop-bar" style="width:6px"></span>5%</td></tr>
+        <tr><td class="time">6:00 PM</td><td class="cond"><span class="icon">🌤️</span>Partly Cloudy</td><td>14</td><td>12°C</td><td>54%</td><td>W 15</td><td><span class="pop-bar" style="width:6px"></span>5%</td></tr>
+        <tr><td class="time">7:00 PM</td><td class="cond"><span class="icon">🌤️</span>Partly Cloudy</td><td>12</td><td>10°C</td><td>57%</td><td>W 12</td><td><span class="pop-bar" style="width:6px"></span>5%</td></tr>
+        <tr><td class="time">8:00 PM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>11</td><td>9°C</td><td>60%</td><td>W 10</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">9:00 PM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>10</td><td>8°C</td><td>62%</td><td>W 8</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">10:00 PM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>9</td><td>7°C</td><td>64%</td><td>W 8</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+        <tr><td class="time">11:00 PM</td><td class="cond"><span class="icon">🌙</span>Clear</td><td>9</td><td>7°C</td><td>65%</td><td>WNW 7</td><td><span class="pop-bar" style="width:4px"></span>2%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer>Report generated: 2026-05-22 10:12:33 ADT &nbsp;|&nbsp; Data: Environment Canada, The Weather Network &nbsp;|&nbsp; <em>Hourly interpolations are model-derived; always check live forecasts for critical decisions.</em></footer>
+</div>
+</body>
+</html>
