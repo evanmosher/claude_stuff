@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report — Lunenburg, NS — May 26, 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1a2a3a; color: #e8edf2; min-height: 100vh; padding: 2rem 1rem; }
+    .container { max-width: 860px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 2rem; }
+    header .location { font-size: 0.95rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7eb8d4; margin-bottom: 0.4rem; }
+    header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.3rem; }
+    header .date { font-size: 0.9rem; color: #8fa8bc; }
+    .hero { background: linear-gradient(135deg, #1e3a52 0%, #243b55 100%); border: 1px solid #2d4f6a; border-radius: 16px; padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .hero-left { display: flex; flex-direction: column; gap: 0.5rem; }
+    .condition-icon { font-size: 4rem; line-height: 1; }
+    .condition-label { font-size: 1.05rem; color: #a0c4d8; font-style: italic; }
+    .hero-right { text-align: right; }
+    .temp-high { font-size: 3.8rem; font-weight: 800; line-height: 1; color: #e2f0f8; }
+    .temp-high sup { font-size: 1.6rem; font-weight: 400; vertical-align: super; }
+    .temp-range { font-size: 1rem; color: #7eb8d4; margin-top: 0.3rem; }
+    .alert-banner { background: #3a2010; border: 1px solid #b05520; border-left: 4px solid #e07030; border-radius: 8px; padding: 0.85rem 1.1rem; margin-bottom: 1.5rem; font-size: 0.93rem; color: #f0c090; }
+    .alert-banner strong { color: #f0a060; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .card { background: #1e3a52; border: 1px solid #2d4f6a; border-radius: 12px; padding: 1.1rem 1.2rem; }
+    .card-label { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6a9bb5; margin-bottom: 0.4rem; }
+    .card-value { font-size: 1.35rem; font-weight: 600; color: #d4eaf5; }
+    .card-sub { font-size: 0.8rem; color: #7a9db5; margin-top: 0.2rem; }
+    .wind-section { background: #1e3a52; border: 1px solid #2d4f6a; border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1.5rem; }
+    .wind-section h2 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6a9bb5; margin-bottom: 1rem; }
+    .wind-timeline { display: flex; flex-direction: column; gap: 0.7rem; }
+    .wind-row { display: flex; align-items: center; gap: 1rem; }
+    .wind-period { min-width: 90px; font-size: 0.82rem; color: #8fb5c8; }
+    .wind-bar-wrap { flex: 1; height: 8px; background: #0f2233; border-radius: 4px; overflow: hidden; }
+    .wind-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #3a8fc0, #7ad0f0); }
+    .wind-value { min-width: 130px; text-align: right; font-size: 0.88rem; color: #d4eaf5; }
+    .sun-row { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .sun-card { flex: 1; background: #1e3a52; border: 1px solid #2d4f6a; border-radius: 12px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .sun-icon { font-size: 1.8rem; }
+    .sun-info .sun-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6a9bb5; }
+    .sun-info .sun-time { font-size: 1.25rem; font-weight: 600; color: #f0c060; }
+    .forecast-section { background: #1e3a52; border: 1px solid #2d4f6a; border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1.5rem; }
+    .forecast-section h2 { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6a9bb5; margin-bottom: 1rem; }
+    .forecast-item { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px solid #1a3045; }
+    .forecast-item:last-child { border-bottom: none; }
+    .forecast-period { min-width: 80px; font-size: 0.85rem; font-weight: 600; color: #a0c4d8; }
+    .forecast-desc { flex: 1; font-size: 0.88rem; color: #c8dde8; line-height: 1.5; }
+    .forecast-temp { font-size: 0.95rem; font-weight: 600; color: #d4eaf5; white-space: nowrap; }
+    footer { text-align: center; font-size: 0.75rem; color: #4a6a80; margin-top: 2rem; line-height: 1.6; }
+    footer a { color: #5a8aa0; text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="location">Lunenburg, Nova Scotia, Canada &mdash; 44.38&deg;N 64.32&deg;W</div>
+    <h1>Daily Weather Report</h1>
+    <div class="date">Tuesday, May 26, 2026 &bull; Atlantic Daylight Time (UTC&minus;3) &bull; Generated 07:11 ADT</div>
+  </header>
+  <div class="hero">
+    <div class="hero-left">
+      <div class="condition-icon">⛅</div>
+      <div style="font-size:1.3rem; font-weight:700; color:#c8e4f4;">Mix of Sun &amp; Cloud</div>
+      <div class="condition-label">Pleasant spring day &bull; Becoming breezy &bull; Cloudy periods overnight</div>
+    </div>
+    <div class="hero-right">
+      <div class="temp-high">22<sup>&deg;C</sup></div>
+      <div class="temp-range">High 22&deg;C &nbsp;/&nbsp; Low 8&deg;C</div>
+      <div style="font-size:0.85rem; color:#8fa8bc; margin-top:0.3rem;">Humidex 25 &bull; UV Index 7 (High)</div>
+    </div>
+  </div>
+  <div class="alert-banner">
+    <strong>&#9728; UV Advisory:</strong> UV index of 7 (high) this afternoon &mdash; protect skin and eyes when outdoors. Westerly winds 20 km/h developing in the afternoon.
+  </div>
+  <div class="grid">
+    <div class="card"><div class="card-label">High Temperature</div><div class="card-value">22 &deg;C</div><div class="card-sub">Humidex ~25</div></div>
+    <div class="card"><div class="card-label">Overnight Low</div><div class="card-value">8 &deg;C</div><div class="card-sub">Cloudy periods</div></div>
+    <div class="card"><div class="card-label">Precipitation</div><div class="card-value">0 mm</div><div class="card-sub">Dry &mdash; no rain expected</div></div>
+    <div class="card"><div class="card-label">Relative Humidity</div><div class="card-value">55&ndash;70%</div><div class="card-sub">Comfortable</div></div>
+    <div class="card"><div class="card-label">Visibility</div><div class="card-value">&gt; 24 km</div><div class="card-sub">Excellent</div></div>
+    <div class="card"><div class="card-label">Barometric Pressure</div><div class="card-value">~1018 hPa</div><div class="card-sub">Steady &mdash; high pressure</div></div>
+    <div class="card"><div class="card-label">UV Index</div><div class="card-value">7 &mdash; High</div><div class="card-sub">Sun protection advised</div></div>
+    <div class="card"><div class="card-label">Cloud Cover</div><div class="card-value">40&ndash;60%</div><div class="card-sub">Sun &amp; cloud mix</div></div>
+  </div>
+  <div class="wind-section">
+    <h2>Wind Conditions</h2>
+    <div class="wind-timeline">
+      <div class="wind-row"><div class="wind-period">Morning</div><div class="wind-bar-wrap"><div class="wind-bar" style="width:20%"></div></div><div class="wind-value">Light &amp; variable</div></div>
+      <div class="wind-row"><div class="wind-period">Afternoon</div><div class="wind-bar-wrap"><div class="wind-bar" style="width:55%"></div></div><div class="wind-value">W 20 km/h</div></div>
+      <div class="wind-row"><div class="wind-period">Overnight</div><div class="wind-bar-wrap"><div class="wind-bar" style="width:30%"></div></div><div class="wind-value">W 10&ndash;15 km/h easing</div></div>
+    </div>
+  </div>
+  <div class="sun-row">
+    <div class="sun-card"><div class="sun-icon">🌅</div><div class="sun-info"><div class="sun-label">Sunrise</div><div class="sun-time">5:48 AM ADT</div></div></div>
+    <div class="sun-card"><div class="sun-icon">🌇</div><div class="sun-info"><div class="sun-label">Sunset</div><div class="sun-time">8:46 PM ADT</div></div></div>
+    <div class="sun-card"><div class="sun-icon">⏱️</div><div class="sun-info"><div class="sun-label">Day Length</div><div class="sun-time">14 h 58 min</div></div></div>
+  </div>
+  <div class="forecast-section">
+    <h2>Forecast Periods</h2>
+    <div class="forecast-item"><div class="forecast-period">Morning</div><div class="forecast-desc">Sunny with a few clouds. Light variable winds. Pleasant start to the day.</div><div class="forecast-temp">12&ndash;18&deg;C</div></div>
+    <div class="forecast-item"><div class="forecast-period">Afternoon</div><div class="forecast-desc">Mix of sun and cloud. Winds becoming west 20 km/h. UV index 7 &mdash; high.</div><div class="forecast-temp">High 22&deg;C</div></div>
+    <div class="forecast-item"><div class="forecast-period">Evening</div><div class="forecast-desc">Increasing cloudiness. Winds diminishing.</div><div class="forecast-temp">14&ndash;16&deg;C</div></div>
+    <div class="forecast-item"><div class="forecast-period">Overnight</div><div class="forecast-desc">Cloudy periods. Light west winds.</div><div class="forecast-temp">Low 8&deg;C</div></div>
+  </div>
+  <footer>
+    Weather data sourced from <a href="https://weather.gc.ca/en/location/index.html?coords=44.377,-64.317" target="_blank">Environment Canada</a>
+    &bull; Report generated May 26, 2026 at 07:11 ADT
+  </footer>
+</div>
+</body>
+</html>
