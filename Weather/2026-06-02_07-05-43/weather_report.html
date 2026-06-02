@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report &mdash; Lunenburg, NS &mdash; June 2, 2026</title>
+  <style>
+    :root {
+      --sky: #1a6fa8;
+      --sky-light: #e8f4fc;
+      --accent: #f59e0b;
+      --alert: #dc2626;
+      --alert-bg: #fef2f2;
+      --alert-border: #fca5a5;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(160deg, #bde0f7 0%, #e8f4fc 60%, #f0f9ff 100%);
+      min-height: 100vh;
+      color: var(--text);
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--sky);
+    }
+
+    header .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    .alert-banner {
+      background: var(--alert-bg);
+      border: 1.5px solid var(--alert-border);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      max-width: 760px;
+      margin: 0 auto 1.75rem auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .alert-banner .icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .alert-banner strong { color: var(--alert); }
+
+    .alert-banner p { font-size: 0.9rem; color: #7f1d1d; margin-top: 0.2rem; }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Current conditions */
+    .current-main {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .current-icon { font-size: 4rem; }
+
+    .current-temps { flex: 1 1 160px; }
+
+    .current-temps .temp {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--sky);
+      line-height: 1;
+    }
+
+    .current-temps .feels-like {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .current-temps .condition {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+    }
+
+    .current-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-item label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .meta-item span {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* High / Low bar */
+    .hl-row {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hl-item { text-align: center; flex: 1; }
+    .hl-item .label { font-size: 0.8rem; color: var(--muted); }
+    .hl-item .value { font-size: 1.75rem; font-weight: 700; }
+    .hl-item.high .value { color: #dc2626; }
+    .hl-item.low .value { color: #2563eb; }
+
+    .hl-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      flex-basis: 100%;
+    }
+
+    /* Sun times */
+    .sun-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+      text-align: center;
+    }
+    .sun-item .label { font-size: 0.8rem; color: var(--muted); }
+    .sun-item .value { font-size: 1.3rem; font-weight: 700; }
+
+    /* Tonight */
+    .tonight-body { font-size: 0.95rem; line-height: 1.6; }
+    .tonight-body .low-temp { font-size: 1.2rem; font-weight: 700; color: #2563eb; }
+
+    /* Source */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 1.75rem auto 0;
+      line-height: 1.6;
+    }
+
+    footer a { color: var(--sky); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>&#127749; Lunenburg, Nova Scotia</h1>
+    <p class="subtitle">Weather Report &mdash; Tuesday, June 2, 2026 &mdash; Generated 07:05 ADT</p>
+  </header>
+
+  <!-- Thunderstorm Advisory -->
+  <div class="alert-banner">
+    <span class="icon">&#9889;</span>
+    <div>
+      <strong>Thundershower Risk &mdash; Environment Canada</strong>
+      <p>A 60% chance of showers developing late morning and through the afternoon, with the risk of an isolated thundershower. Be ready to seek shelter quickly if you hear thunder.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Current Conditions -->
+    <div class="card">
+      <h2>Current Conditions</h2>
+      <div class="current-main">
+        <div class="current-icon">&#9729;&#65039;</div>
+        <div class="current-temps">
+          <div class="temp">14&deg;C</div>
+          <div class="feels-like">Feels like 13&deg;C</div>
+          <div class="condition">Cloudy</div>
+        </div>
+      </div>
+      <div class="current-meta">
+        <div class="meta-item">
+          <label>Wind</label>
+          <span>SW 15 km/h</span>
+        </div>
+        <div class="meta-item">
+          <label>Humidity</label>
+          <span>78%</span>
+        </div>
+        <div class="meta-item">
+          <label>UV Index</label>
+          <span>3 &mdash; Moderate</span>
+        </div>
+        <div class="meta-item">
+          <label>POP</label>
+          <span>60%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day High / Low -->
+    <div class="card">
+      <h2>Today&rsquo;s Temperatures</h2>
+      <div class="hl-row">
+        <div class="hl-item high">
+          <div class="label">Daytime High</div>
+          <div class="value">14&deg;C</div>
+        </div>
+        <div class="hl-item low">
+          <div class="label">Overnight Low</div>
+          <div class="value">8&deg;C</div>
+        </div>
+        <p class="hl-note">&#9432; A cool, damp day along the South Shore with onshore flow keeping temperatures suppressed.</p>
+      </div>
+    </div>
+
+    <!-- Sunrise / Sunset -->
+    <div class="card">
+      <h2>Sun</h2>
+      <div class="sun-row">
+        <div class="sun-item">
+          <div class="label">&#127774; Sunrise</div>
+          <div class="value">5:32 ADT</div>
+        </div>
+        <div class="sun-item">
+          <div class="label">&#127754; Sunset</div>
+          <div class="value">20:55 ADT</div>
+        </div>
+        <div class="sun-item">
+          <div class="label">&#9728;&#65039; Daylight</div>
+          <div class="value">15 h 23 m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tonight -->
+    <div class="card">
+      <h2>Tonight</h2>
+      <div class="tonight-body">
+        <p>Showers tapering off in the evening, then becoming <strong>partly cloudy</strong> overnight as the system pulls away offshore.</p>
+        <p style="margin-top:0.6rem;">Wind <strong>SW 15 km/h</strong>, shifting to <strong>W 10 km/h</strong> after midnight.</p>
+        <p style="margin-top:0.75rem;">Overnight low: <span class="low-temp">8&deg;C</span></p>
+      </div>
+    </div>
+
+    <!-- Day Summary -->
+    <div class="card">
+      <h2>Day Summary</h2>
+      <p style="line-height:1.7; font-size:0.95rem;">
+        A grey start to Tuesday in Lunenburg with full cloud cover and temperatures near <strong>14&deg;C</strong>. A weak low pressure system tracking through the Maritimes brings a <strong>60% chance of showers</strong> developing late morning, becoming more numerous through the afternoon, with the small but non-zero risk of an embedded <strong>thundershower</strong>.
+        Winds stay light to moderate from the southwest, keeping humidity values up and the air feeling raw despite the mild reading on the thermometer.
+        Showers wind down by evening, setting the stage for a much brighter Wednesday with sunshine and a high near <strong>19&deg;C</strong>. Outdoor plans on the waterfront today should account for the rain risk &mdash; bring a jacket and an umbrella.
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Data sourced from <a href="https://weather.gc.ca/en/location/index.html?coords=44.377%2C-64.317" target="_blank">Environment Canada &mdash; Lunenburg, NS Forecast</a></p>
+    <p style="margin-top:0.3rem;">Report generated automatically &bull; June 2, 2026 07:05 ADT &bull; Coordinates: 44.377&deg;N, 64.317&deg;W</p>
+  </footer>
+
+</body>
+</html>
