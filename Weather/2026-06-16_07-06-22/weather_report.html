@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Report &mdash; Lunenburg, NS &mdash; June 16, 2026</title>
+  <style>
+    :root {
+      --sky: #1a6fa8;
+      --sky-light: #e8f4fc;
+      --accent: #f59e0b;
+      --alert: #dc2626;
+      --alert-bg: #fef2f2;
+      --alert-border: #fca5a5;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(160deg, #bde0f7 0%, #e8f4fc 60%, #f0f9ff 100%);
+      min-height: 100vh;
+      color: var(--text);
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--sky);
+    }
+
+    header .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.25rem;
+    }
+
+    .alert-banner {
+      background: var(--alert-bg);
+      border: 1.5px solid var(--alert-border);
+      border-radius: 10px;
+      padding: 0.85rem 1.25rem;
+      max-width: 760px;
+      margin: 0 auto 1.75rem auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .alert-banner .icon { font-size: 1.4rem; flex-shrink: 0; }
+
+    .alert-banner strong { color: var(--alert); }
+
+    .alert-banner p { font-size: 0.9rem; color: #7f1d1d; margin-top: 0.2rem; }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Current conditions */
+    .current-main {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .current-icon { font-size: 4rem; }
+
+    .current-temps { flex: 1 1 160px; }
+
+    .current-temps .temp {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--sky);
+      line-height: 1;
+    }
+
+    .current-temps .feels-like {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .current-temps .condition {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 0.4rem;
+    }
+
+    .current-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-item label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    .meta-item span {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    /* High / Low bar */
+    .hl-row {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hl-item { text-align: center; flex: 1; }
+    .hl-item .label { font-size: 0.8rem; color: var(--muted); }
+    .hl-item .value { font-size: 1.75rem; font-weight: 700; }
+    .hl-item.high .value { color: #dc2626; }
+    .hl-item.low .value { color: #2563eb; }
+
+    .hl-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      flex-basis: 100%;
+    }
+
+    /* Sun times */
+    .sun-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+      text-align: center;
+    }
+    .sun-item .label { font-size: 0.8rem; color: var(--muted); }
+    .sun-item .value { font-size: 1.3rem; font-weight: 700; }
+
+    /* Tonight */
+    .tonight-body { font-size: 0.95rem; line-height: 1.6; }
+    .tonight-body .low-temp { font-size: 1.2rem; font-weight: 700; color: #2563eb; }
+
+    /* Source */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 1.75rem auto 0;
+      line-height: 1.6;
+    }
+
+    footer a { color: var(--sky); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>&#127749; Lunenburg, Nova Scotia</h1>
+    <p class="subtitle">Weather Report &mdash; Tuesday, June 16, 2026 &mdash; Generated 07:06 ADT</p>
+  </header>
+
+  <!-- Showers & thundershower risk banner -->
+  <div class="alert-banner" style="background:#fffbeb; border-color:#fcd34d;">
+    <span class="icon">&#9928;</span>
+    <div>
+      <strong style="color:#b45309;">Showers Early, Risk of a Thundershower &mdash; Fog Inland This Evening</strong>
+      <p style="color:#78350f;">A weakening frontal trough is still draped across the South Shore this morning. Expect <strong>showers ending late morning</strong> with an embedded <strong>risk of an isolated thundershower</strong>, then a mix of sun and cloud for the afternoon. About <strong>5 mm</strong> of rainfall is likely in the morning batch. Fog returns inland after sunset as winds slacken &mdash; visibility may fall sharply along the LaHave valley after 22:00.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Current Conditions -->
+    <div class="card">
+      <h2>Current Conditions</h2>
+      <div class="current-main">
+        <div class="current-icon">&#127783;</div>
+        <div class="current-temps">
+          <div class="temp">15&deg;C</div>
+          <div class="feels-like">Humidex 18&deg;C</div>
+          <div class="condition">Showers &mdash; Mild &amp; Muggy</div>
+        </div>
+      </div>
+      <div class="current-meta">
+        <div class="meta-item">
+          <label>Wind</label>
+          <span>S 20 km/h, gusting 40</span>
+        </div>
+        <div class="meta-item">
+          <label>Humidity</label>
+          <span>92%</span>
+        </div>
+        <div class="meta-item">
+          <label>UV Index</label>
+          <span>8 &mdash; Very High</span>
+        </div>
+        <div class="meta-item">
+          <label>Visibility</label>
+          <span>6 km</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day High / Low -->
+    <div class="card">
+      <h2>Today&rsquo;s Temperatures</h2>
+      <div class="hl-row">
+        <div class="hl-item high">
+          <div class="label">Daytime High</div>
+          <div class="value">21&deg;C</div>
+        </div>
+        <div class="hl-item low">
+          <div class="label">Overnight Low</div>
+          <div class="value">14&deg;C</div>
+        </div>
+        <p class="hl-note">&#9432; Inland communities (Bridgewater, New Germany) should reach the warmer end of that range this afternoon once the showers exit. The immediate harbourfront and outer islands may struggle to climb past 18&ndash;19&deg;C beneath the persistent southerly onshore flow off the still-cold Atlantic.</p>
+      </div>
+    </div>
+
+    <!-- Sunrise / Sunset -->
+    <div class="card">
+      <h2>Sun</h2>
+      <div class="sun-row">
+        <div class="sun-item">
+          <div class="label">&#127774; Sunrise</div>
+          <div class="value">5:45 ADT</div>
+        </div>
+        <div class="sun-item">
+          <div class="label">&#127754; Sunset</div>
+          <div class="value">20:42 ADT</div>
+        </div>
+        <div class="sun-item">
+          <div class="label">&#9728;&#65039; Daylight</div>
+          <div class="value">14 h 57 m</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tonight -->
+    <div class="card">
+      <h2>Tonight</h2>
+      <div class="tonight-body">
+        <p>Cloudy periods with the last of the day&rsquo;s shower activity wrapping up by mid-evening. Winds ease quickly after sunset as the front slides east of Sable Island, allowing radiational fog to form along the LaHave River, the inner harbour, and the low ground around Mahone Bay.</p>
+        <p style="margin-top:0.6rem;">Winds back from <strong>south 20 km/h gusting 40</strong> to <strong>light and variable near midnight</strong>. Visibility may collapse below 1 km in dense fog patches between 23:00 and dawn &mdash; drivers on Highway 3 between Lunenburg and Mahone Bay, and Highway 332 around Riverport, should slow and use low beams.</p>
+        <p style="margin-top:0.75rem;">Overnight low: <span class="low-temp">14&deg;C</span></p>
+      </div>
+    </div>
+
+    <!-- Day Summary -->
+    <div class="card">
+      <h2>Day Summary</h2>
+      <p style="line-height:1.7; font-size:0.95rem;">
+        A wet, muggy start to Tuesday on the South Shore as the tail end of a Gulf-of-Maine frontal trough drags moist Atlantic air across Lunenburg County. <strong>Showers through the morning</strong> &mdash; with a not-insignificant <strong>risk of an embedded thundershower</strong> &mdash; should taper before noon, dropping about <strong>5 mm</strong> in the rain gauge. South winds gusting to <strong>40 km/h</strong> will keep things blustery along Battery Point and the outer breakwater until early afternoon.
+        Once the trough exits, expect a <strong>mix of sun and cloud</strong> with the daytime high climbing to <strong>21&deg;C</strong> &mdash; right at the seasonal normal. UV will jump quickly under any sunny breaks: at index <strong>8 (Very High)</strong>, unprotected skin can burn in under 25 minutes between 11:00 and 16:00, so sunscreen and a hat are worth having along even if the morning looks bleak.
+        Late afternoon and early evening should be the pick of the day for a stroll on the boardwalk or a tour of the Bluenose II if she&rsquo;s alongside the wharf. Mariners on Mahone Bay can expect <strong>building southerly seas to 1&ndash;2 m</strong> tapering by sunset, with fog the bigger overnight concern. Looking ahead, an upper ridge nudges in for Wednesday with sunnier skies, lighter winds, and highs back into the low 20s.
+      </p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Data sourced from <a href="https://weather.gc.ca/en/location/index.html?coords=44.377%2C-64.317" target="_blank">Environment Canada &mdash; Lunenburg, NS Forecast</a> and <a href="https://weather.com/en-CA/weather/tenday/l/3da0cf264c41b844d00b14f2b979fd62fb5302397acdbd403de9d8f60248f3cc" target="_blank">The Weather Channel &mdash; 10-Day Outlook</a></p>
+    <p style="margin-top:0.3rem;">Report generated automatically &bull; June 16, 2026 07:06 ADT &bull; Coordinates: 44.377&deg;N, 64.317&deg;W</p>
+  </footer>
+
+</body>
+</html>
